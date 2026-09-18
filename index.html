@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Monthly Expense Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <header><h1>Monthly Expense Tracker</h1></header>
+      <section class="dashboard">
+        <div class="card income">
+          <h3>Total Income</h3>
+          <p id="total-income">₹0.00</p>
+        </div>
+        <div class="card expense">
+          <h3>Total Expense</h3>
+          <p id="total-expense">₹0.00</p>
+        </div>
+        <div class="card balance">
+          <h3>Remaining Balance</h3>
+          <p id="remaining-balance">₹0.00</p>
+        </div>
+      </section>
+      <main>
+        <section class="spending-trends">
+          <h2>Spending Trends</h2>
+          <div class="chart-container"><canvas id="trendsChart"></canvas></div>
+        </section>
+        <section class="add-transaction">
+          <h2 id="form-title">Add Transaction</h2>
+          <form id="transaction-form">
+            <div class="form-group">
+              <label for="amount">Amount</label>
+              <input
+                type="number"
+                id="amount"
+                placeholder="Enter amount"
+                min="0"
+                step="0.01"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="type">Type</label>
+              <select id="type" required>
+                <option value="expense">Expense</option>
+                <option value="income">Income</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="category">Category</label>
+              <select id="category" required>
+                <option value="Food">Food</option>
+                <option value="Travel">Travel</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Rent">Rent</option>
+                <option value="Bills">Bills</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Other">Other</option>
+                <option value="Salary">Salary (For Income)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <input
+                type="text"
+                id="description"
+                placeholder="Enter description"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="date">Date</label>
+              <input type="date" id="date" required />
+            </div>
+            <button type="submit" class="btn">Add Transaction</button>
+          </form>
+        </section>
+        <section class="transaction-list">
+          <div class="list-header">
+            <h2>Transactions</h2>
+            <div class="list-controls">
+              <select id="filter-month" title="Select Month">
+                <option value="">All Months</option>
+                <option value="01">January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">April</option>
+                <option value="05">May</option>
+                <option value="06">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+              <select id="filter-year" title="Select Year">
+                <option value="">All Years</option>
+              </select>
+              <button id="btn-import-csv" class="btn btn-secondary">
+                Import CSV
+              </button>
+              <input
+                type="file"
+                id="file-import-csv"
+                accept=".csv,text/csv"
+                style="display: none"
+              />
+              <button id="btn-export-csv" class="btn btn-success">
+                Export CSV
+              </button>
+            </div>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Category</th>
+                  <th>Type</th>
+                  <th>Amount</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="transaction-tbody"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
