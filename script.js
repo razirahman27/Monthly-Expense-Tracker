@@ -17,7 +17,10 @@ let transactions = [],
   btnImportCsv = document.getElementById("btn-import-csv"),
   filterMonthSelect = document.getElementById("filter-month"),
   filterYearSelect = document.getElementById("filter-year"),
-  fileImportCsv = document.getElementById("file-import-csv");
+  fileImportCsv = document.getElementById("file-import-csv"),
+  topFilterMonthSelect = document.getElementById("top-filter-month"),
+  topFilterYearSelect = document.getElementById("top-filter-year"),
+  pageHeading = document.getElementById("page-heading");
 function addTransaction(e) {
   e.preventDefault();
   let amountValue = amountInput.value,
@@ -192,20 +195,39 @@ function updateChart() {
 function updateYearOptions() {
   let selectedYear = filterYearSelect.value;
   let years = [...new Set(transactions.map((t) => t.date.substring(0, 4)))].sort();
-  filterYearSelect.innerHTML = '<option value="">All Years</option>';
+  let optionsHtml = '<option value="">All Years</option>';
   years.forEach((year) => {
-    let option = document.createElement("option");
-    option.value = year;
-    option.textContent = year;
-    if (year === selectedYear) option.selected = true;
-    filterYearSelect.appendChild(option);
+    optionsHtml += `<option value="${year}" ${year === selectedYear ? 'selected' : ''}>${year}</option>`;
   });
+  filterYearSelect.innerHTML = optionsHtml;
+  topFilterYearSelect.innerHTML = optionsHtml;
+  filterYearSelect.value = selectedYear;
+  topFilterYearSelect.value = selectedYear;
+}
+function updateHeading() {
+  let monthText = filterMonthSelect.options[filterMonthSelect.selectedIndex]?.text;
+  let yearText = filterYearSelect.options[filterYearSelect.selectedIndex]?.text;
+  
+  if (monthText === "All Months" || !monthText) monthText = "";
+  if (yearText === "All Years" || !yearText) yearText = "";
+  
+  let heading = "Expense Tracker";
+  if (monthText && yearText) {
+    heading = `${monthText} ${yearText} Expense Tracker`;
+  } else if (monthText) {
+    heading = `${monthText} Expense Tracker`;
+  } else if (yearText) {
+    heading = `${yearText} Expense Tracker`;
+  }
+  
+  pageHeading.textContent = heading;
 }
 function refreshUI() {
   updateYearOptions();
   displayTransactions();
   updateSummary();
   updateChart();
+  updateHeading();
 }
 function exportCSV() {
   let filteredTransactions = getFilteredTransactions();
@@ -378,13 +400,27 @@ function setDefaultDate() {
     day = ("0" + today.getDate()).slice(-2);
   dateInput.value = year + "-" + month + "-" + day;
 }
+function syncFilters(e) {
+  if (e.target === topFilterMonthSelect) {
+    filterMonthSelect.value = topFilterMonthSelect.value;
+  } else if (e.target === filterMonthSelect) {
+    topFilterMonthSelect.value = filterMonthSelect.value;
+  } else if (e.target === topFilterYearSelect) {
+    filterYearSelect.value = topFilterYearSelect.value;
+  } else if (e.target === filterYearSelect) {
+    topFilterYearSelect.value = filterYearSelect.value;
+  }
+  refreshUI();
+}
 function initializeApp() {
   (setDefaultDate(), loadData());
 }
 ((window.onload = initializeApp),
   transactionForm.addEventListener("submit", addTransaction),
-  filterMonthSelect.addEventListener("change", refreshUI),
-  filterYearSelect.addEventListener("change", refreshUI),
+  filterMonthSelect.addEventListener("change", syncFilters),
+  filterYearSelect.addEventListener("change", syncFilters),
+  topFilterMonthSelect.addEventListener("change", syncFilters),
+  topFilterYearSelect.addEventListener("change", syncFilters),
   btnExportCsv.addEventListener("click", exportCSV),
   btnImportCsv.addEventListener("click", () => {
     fileImportCsv.click();

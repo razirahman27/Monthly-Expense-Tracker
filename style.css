@@ -21,6 +21,43 @@ header {
 header h1 {
   color: #2c3e50;
   font-size: 2.5rem;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+.top-filter-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: #fff;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  width: max-content;
+  margin-left: auto;
+}
+.filter-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+.filter-group label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #7f8c8d;
+}
+.filter-group select {
+  padding: 8px 10px;
+  border: 1px solid #bdc3c7;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  color: #2c3e50;
+  outline: none;
+  background-color: #fff;
+  transition: border-color 0.3s ease;
+}
+.filter-group select:focus {
+  border-color: #3498db;
 }
 .dashboard {
   display: flex;
@@ -222,14 +259,13 @@ table tbody tr:hover {
 .btn-edit:hover {
   background-color: #d68910;
 }
-@media (max-width: 768px) {
-  .dashboard {
-    flex-direction: column;
-  }
-  main {
-    flex-direction: column;
-  }
-  .transaction-list {
-    min-width: 100%;
-  }
+
+/* Remove spinner from Amount input */
+#amount::-webkit-outer-spin-button,
+#amount::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+#amount[type="number"] {
+  -moz-appearance: textfield;
 }

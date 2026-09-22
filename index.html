@@ -9,7 +9,35 @@
   </head>
   <body>
     <div class="container">
-      <header><h1>Monthly Expense Tracker</h1></header>
+      <header>
+        <h1 id="page-heading">Expense Tracker</h1>
+        <div class="top-filter-panel">
+          <div class="filter-group">
+            <label for="top-filter-month">Month</label>
+            <select id="top-filter-month" title="Select Month">
+              <option value="">All Months</option>
+              <option value="01">January</option>
+              <option value="02">February</option>
+              <option value="03">March</option>
+              <option value="04">April</option>
+              <option value="05">May</option>
+              <option value="06">June</option>
+              <option value="07">July</option>
+              <option value="08">August</option>
+              <option value="09">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="top-filter-year">Year</label>
+            <select id="top-filter-year" title="Select Year">
+              <option value="">All Years</option>
+            </select>
+          </div>
+        </div>
+      </header>
       <section class="dashboard">
         <div class="card income">
           <h3>Total Income</h3>
