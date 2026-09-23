@@ -1,0 +1,23 @@
+{
+  "name": "monthly-expense-tracker",
+  "version": "1.0.0",
+  "description": "A simple, beginner-friendly web application to track monthly income and expenses. This project was developed as a BCA mini project to demonstrate the basics of web development using vanilla HTML, CSS, and JavaScript.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/razirahman27/Monthly-Expense-Tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/razirahman27/Monthly-Expense-Tracker/issues"
+  },
+  "homepage": "https://github.com/razirahman27/Monthly-Expense-Tracker#readme",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}
